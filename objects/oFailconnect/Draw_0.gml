@@ -1,0 +1,5 @@
+draw_set_alpha(alpha)
+draw_set_color(c_red)
+draw_text(x,y, "unable to connect")
+draw_set_color(c_white)
+draw_set_alpha(1)

@@ -45,6 +45,8 @@ part_type_size(global.miniglass, 2, 3, 0, 0)
 global.sfxvolume = 0
 global.bgmvolume = 0
 
+global.failedtoconnect = false
+
 sndshootout = noone
 preshootout = true
 
