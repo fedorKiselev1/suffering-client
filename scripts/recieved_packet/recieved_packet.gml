@@ -10,7 +10,7 @@ function recieved_packet(argument0) {
 			
 			buffer_seek(client_buffer, buffer_seek_start, 0)
 			buffer_write(client_buffer, buffer_u8, network.player_establish)
-			buffer_write(client_buffer, buffer_string, "GAMER") //change this
+			buffer_write(client_buffer, buffer_string, global.username)
 			network_send_packet(client, client_buffer, buffer_tell(client_buffer))
 			
 			break;
@@ -51,15 +51,20 @@ function recieved_packet(argument0) {
 			
 			ds_map_delete(socket_to_instance_id, _socket)
 			
+			oPlayerClient.playerscore = 0
+			
 			break;
 		
 		case network.move:
+			var _forced = buffer_read(buffer, buffer_bool)
 			var _sock = buffer_read(buffer, buffer_u8)
 			var mov_x = buffer_read(buffer, buffer_u16)
 			
 			_player = ds_map_find_value(socket_to_instance_id, _sock)
 			
-			_player.x = mov_x
+			if _sock != global.mysocket || _forced {
+				_player.x = mov_x
+			}
 			break;
 			
 		case network.ready_position:
@@ -76,6 +81,7 @@ function recieved_packet(argument0) {
 			oCountdown.count = _count
 			if _count == 0 {
 				global.shootoutactive = true
+				oFpshand.readytoshoot = true
 			} else {
 				global.shootoutactive = false
 			}
@@ -91,18 +97,48 @@ function recieved_packet(argument0) {
 			
 			if _sock = global.mysocket {
 				if _hit {
-					oEnemy.image_angle = 180
+					global.shootoutactive = false
+					oEnemy.sprite_index = sEnemydead
+					audio_play_sound(sndHit, 1, 0)
+					instance_create_layer(room_width, 0, "transition", oTransition)
 				}
-			} else {
+			} else if !_hit {
 				oWorld.Enemyshootx = _shotX
 				oWorld.Enemyshooty = _shotY
 				oWorld.Enemyvictimx = _victimX
 				oWorld.Enemyvictimy = _victimY
 				oWorld.Enemyshotalpha = 1
+				
+			} else {
+				oFpshand.image_index = 1
+				oFpshand.alarm[0] = 20
+				oFpshand.shake = true
+				oPlayerClient.canmove = false
+				instance_create_layer(736, 224, "ready", oDeath)
+				global.shootoutactive = false
+				audio_play_sound(sndDeath, 1, 0, 1.5)
+				instance_create_layer(room_width, 0, "transition", oTransition)
 			}
 			
 			_player = ds_map_find_value(socket_to_instance_id, _sock)
+			_player.playerscore = _score
 			break;
 			
+		case network.reset:
+			if instance_exists(oTransition) {
+				oTransition.active = false
+			}
+			oEnemy.sprite_index = sEnemy
+			oEnemy.image_speed = 1
+			oReadyzone.image_alpha = 1
+			oPlayerClient.canmove = true
+			oWorld.reloadtime = 0
+			oWorld.reloaded = true
+			oFpshand.readytoshoot = false
+			oFpshand.image_index = 0
+			with (oDeath) {
+				instance_destroy()
+			}
+			break;
 	}
 }

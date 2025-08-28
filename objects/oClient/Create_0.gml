@@ -6,11 +6,12 @@ enum network {
 	move,
 	ready_position,
 	countdown,
-	shoot
+	shoot,
+	reset
 }
 
 client = network_create_socket(network_socket_tcp)
-connected = network_connect(client, "127.0.0.1", 12097)
+connected = network_connect(client, global.ip, global.port)
 
 client_buffer = buffer_create(1024, buffer_fixed, 1)
 

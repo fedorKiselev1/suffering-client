@@ -1,0 +1,1 @@
+image_angle += rotdir * 4

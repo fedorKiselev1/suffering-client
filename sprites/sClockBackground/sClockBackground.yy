@@ -2,7 +2,7 @@
   "$GMSprite":"",
   "%Name":"sClockBackground",
   "bboxMode":0,
-  "bbox_bottom":255,
+  "bbox_bottom":345,
   "bbox_left":0,
   "bbox_right":255,
   "bbox_top":0,
@@ -12,18 +12,18 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"dfa50de1-a561-4f97-9113-36f80312236c","name":"dfa50de1-a561-4f97-9113-36f80312236c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"d0b2abb7-8627-4704-be5f-cc4bd3c40974","name":"d0b2abb7-8627-4704-be5f-cc4bd3c40974","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
-  "height":256,
+  "height":347,
   "HTile":false,
   "layers":[
     {"$GMImageLayer":"","%Name":"8f6f10eb-4ca0-4d96-b3bb-1ab4f8577997","blendMode":0,"displayName":"default","isLocked":false,"name":"8f6f10eb-4ca0-4d96-b3bb-1ab4f8577997","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"sClockBackground",
   "nineSlice":null,
-  "origin":4,
+  "origin":9,
   "parent":{
     "name":"Clock",
     "path":"folders/Sprites/Clock.yy",
@@ -63,7 +63,7 @@
     "playbackSpeedType":0,
     "resourceType":"GMSequence",
     "resourceVersion":"2.0",
-    "seqHeight":256.0,
+    "seqHeight":347.0,
     "seqWidth":256.0,
     "showBackdrop":true,
     "showBackdropImage":false,
@@ -71,8 +71,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"dfa50de1-a561-4f97-9113-36f80312236c","path":"sprites/sClockBackground/sClockBackground.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"7d69e9ee-6fd2-443e-a263-9bff057afb24","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"d0b2abb7-8627-4704-be5f-cc4bd3c40974","path":"sprites/sClockBackground/sClockBackground.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"c5fc35be-f9eb-4d99-98e9-20c19e38877e","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

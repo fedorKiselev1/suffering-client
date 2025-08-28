@@ -3,6 +3,12 @@ reversecount = 4 - count
 if count != count_prev {
 	step = 0
 	countdifference = abs(count - count_prev)
+	if count < 4 && count > 0 {
+		audio_play_sound(sndClock, 1, 0, 1, 0, (0.9 + reversecount * 0.1))
+	}
+	if count == 0 {
+		audio_play_sound(sndBell, 1, 0, 1, 0, 1)
+	}
 }
 
 var _pos = animcurve_channel_evaluate(progress, step)
@@ -28,6 +34,12 @@ if global.shootoutactive {
 		positionstep += 1/30
 	} else {
 		positionstep = 1
+	}
+} else {
+	if positionstep > 0 {
+		positionstep -= 1/30
+	} else {
+		positionstep = 0
 	}
 }
 

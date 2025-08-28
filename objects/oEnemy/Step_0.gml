@@ -1,6 +1,6 @@
 if instance_exists(oEnemyClient) {
-	x = (oEnemyClient.x - oPlayerClient.x) / 3 + room_width / 2
+	x = lerp(x, (oEnemyClient.x - oPlayerClient.x) / 3 + room_width / 2, 0.2)
 	visible = true
 } else {
-	visible = true
+	visible = false
 }

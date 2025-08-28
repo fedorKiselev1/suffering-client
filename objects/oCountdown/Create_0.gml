@@ -15,3 +15,7 @@ positionstep = 0
 
 initialX = x
 initialY = y
+
+playerscore = 0
+enemyscore = 0
+enemyname = ""
