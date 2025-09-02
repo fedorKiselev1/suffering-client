@@ -118,6 +118,7 @@ function recieved_packet(argument0) {
 				global.shootoutactive = false
 				audio_play_sound(sndDeath, 1, 0, 1.5)
 				instance_create_layer(room_width, 0, "transition", oTransition)
+				oWorld.deathflash = true
 			}
 			
 			_player = ds_map_find_value(socket_to_instance_id, _sock)

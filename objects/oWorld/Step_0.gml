@@ -1,5 +1,5 @@
 if global.shootoutactive {
-	if reloaded {
+	if reloaded && !dodgerolling {
 		if mouse_check_button_pressed(mb_left) {
 			audio_play_sound(sndGun, 2, 0)
 			buffer_seek(oClient.client_buffer, buffer_seek_start, 0)
@@ -58,3 +58,11 @@ if room == rClient {
 	}
 }
 
+if deathflash {
+	deathsflashalpha -= 0.05
+	if deathsflashalpha <= 0 {
+		deathflash = false
+	}
+} else {
+	deathsflashalpha = 1
+}

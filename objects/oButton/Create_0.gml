@@ -3,7 +3,8 @@ enum button_type {
 	start_game,
 	set_name,
 	set_ip,
-	set_port
+	set_port,
+	tutorial
 }
 enum prompt_type {
 	name,

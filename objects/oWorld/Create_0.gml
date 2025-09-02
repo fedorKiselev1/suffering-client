@@ -29,6 +29,9 @@ reloaded = true
 reloadtimemax = 147
 reloadtime = 0
 
+deathflash = false
+deathsflashalpha = 1
+
 scopeeffect = 0
 
 global.particleSYS = part_system_create()
@@ -42,6 +45,15 @@ part_type_alpha3(global.miniglass, 1, 1, 0)
 part_type_shape(global.miniglass, pt_shape_pixel)
 part_type_size(global.miniglass, 2, 3, 0, 0)
 
+global.speedline = part_type_create()
+part_type_direction(global.speedline, 0, 0, 0, 0)
+part_type_speed(global.speedline, 25, 55, 0, 0)
+part_type_color1(global.speedline, c_white)
+part_type_life(global.speedline, 5, 10)
+part_type_alpha2(global.speedline, 1, 0)
+part_type_sprite(global.speedline, sSpeedline, 0, 0, 0)
+part_type_size_y(global.speedline, 0.1, 1.5, -0.05, 0)
+
 global.sfxvolume = 0
 global.bgmvolume = 0
 
@@ -52,3 +64,5 @@ preshootout = true
 
 alarm[0] = 1
 audio_group_set_gain(bgm, 0.2, 0)
+
+dodgerolling = false
