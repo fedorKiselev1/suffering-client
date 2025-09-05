@@ -56,5 +56,12 @@ if room = rClient {
 		draw_set_color(c_red)
 		draw_rectangle(0, 0, room_width, room_height, 0)
 	}
+	
+	if drawedgeL {
+		draw_sprite_ext(sGradient, 0, 0, 0, 2, room_height, 0, c_white, drawedgeLalpha - 0.4)
+	}
+	if drawedgeR {
+		draw_sprite_ext(sGradient, 0, room_width, 0, -2, room_height, 0, c_white, drawedgeRalpha - 0.4)
+	}
 }
 

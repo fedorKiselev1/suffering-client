@@ -1,4 +1,4 @@
-if dodgeroll == false && dodgerollcooldown <= 0 && keyboard_check(ord("D")) - keyboard_check(ord("A")) != 0{
+if dodgeroll == false && dodgerollcooldown <= 0 && keyboard_check(ord("D")) - keyboard_check(ord("A")) != 0 && global.shootoutactive {
 	dodgeroll = true
 	dodgedirection = keyboard_check(ord("D")) - keyboard_check(ord("A"))
 	rolldestination = x + dodgedirection * 200

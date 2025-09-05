@@ -33,6 +33,8 @@ if dodgeroll {
 	camera_set_view_angle(view_camera[0], lerp(camera_get_view_angle(view_camera[0]), 0, 0.2))
 	camera_set_view_size(view_camera[0], lerp(camera_get_view_width(view_camera[0]), 960, 0.2), lerp(camera_get_view_height(view_camera[0]), 540, 0.2))
 	
+	
+	
 	dodgerollduration--
 	if dodgerollduration <= 0 {
 		if global.shootoutactive && oWorld.reloaded oFpshand.readytoshoot = true
@@ -43,5 +45,20 @@ if dodgeroll {
 }
 
 if dodgerollcooldown > 0 {
+	oWorld.dodgerollcooldown = dodgerollcooldown
 	dodgerollcooldown--
+}
+
+if x < 100 {
+	oWorld.drawedgeL = true
+	oWorld.drawedgeLalpha = 1 - x / 100
+} else {
+	oWorld.drawedgeL = false
+}
+
+if x > room_width - 100 {
+	oWorld.drawedgeR = true
+	oWorld.drawedgeRalpha = (x - room_width + 100) / 100
+} else {
+	oWorld.drawedgeR = false
 }

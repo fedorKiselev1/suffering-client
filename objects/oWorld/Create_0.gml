@@ -1,12 +1,29 @@
 audio_group_load(bgm)
 audio_group_load(sfx)
 global.shootoutactive = false
-global.username = "GAMER"
-global.ip = "127.0.0.1"
-global.port = 42069
+
 shootx = 0
 surfacewithmask = noone
-
+try {
+	var buf = buffer_load("game_settings.ini")
+	var text = buffer_read(buf, buffer_string)
+	text = string_split(text, "\n", 1)
+	for (var i = 0; i < array_length(text); i++) {
+		if string_pos("port:", text[i]) {
+			global.port = string_digits(text[i])
+		}
+		if string_pos("ip:", text[i]) {
+			global.ip = string_trim(string_copy(text[i], 4, string_length(text[i]) - 3))
+		}
+		if string_pos("username:", text[i]) {
+			global.username = string_trim(string_copy(text[i], 10, string_length(text[i]) - 9))
+		}
+	}
+} catch(e) {
+	global.username = "GAMER"
+	global.ip = "127.0.0.1"
+	global.port = 42069
+}
 shooty = 0
 shotalpha = 0
 
@@ -62,7 +79,14 @@ global.failedtoconnect = false
 sndshootout = noone
 preshootout = true
 
+drawedgeL = false
+drawedgeR = false
+
+drawedgeLalpha = 0
+drawedgeRalpha = 0
+
 alarm[0] = 1
 audio_group_set_gain(bgm, 0.2, 0)
 
 dodgerolling = false
+dodgerollcooldown = 20

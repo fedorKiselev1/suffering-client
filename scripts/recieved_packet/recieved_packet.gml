@@ -119,6 +119,7 @@ function recieved_packet(argument0) {
 				audio_play_sound(sndDeath, 1, 0, 1.5)
 				instance_create_layer(room_width, 0, "transition", oTransition)
 				oWorld.deathflash = true
+				instance_create_layer(880, 380, "muzzle", oFlyingobject)
 			}
 			
 			_player = ds_map_find_value(socket_to_instance_id, _sock)
