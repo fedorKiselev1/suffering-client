@@ -2,6 +2,10 @@ audio_group_load(bgm)
 audio_group_load(sfx)
 global.shootoutactive = false
 
+fullscreen = false
+
+
+
 shootx = 0
 surfacewithmask = noone
 try {
@@ -48,6 +52,7 @@ reloadtime = 0
 
 deathflash = false
 deathsflashalpha = 1
+maxdeathsflashalpha = 1
 
 scopeeffect = 0
 

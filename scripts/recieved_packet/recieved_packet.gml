@@ -63,7 +63,9 @@ function recieved_packet(argument0) {
 			_player = ds_map_find_value(socket_to_instance_id, _sock)
 			
 			if _sock != global.mysocket || _forced {
-				_player.x = mov_x
+				if instance_exists(_player) {
+					_player.x = mov_x
+				}
 			}
 			break;
 			
@@ -93,14 +95,26 @@ function recieved_packet(argument0) {
 			var _victimX = buffer_read(buffer, buffer_u16)
 			var _victimY = buffer_read(buffer, buffer_u16)
 			var _hit = buffer_read(buffer, buffer_bool)
+			var _headshot = buffer_read(buffer, buffer_bool)
+			var _victimhp = buffer_read(buffer, buffer_u8)
 			var _score = buffer_read(buffer, buffer_u16)
 			
 			if _sock = global.mysocket {
-				if _hit {
+				if _headshot {
 					global.shootoutactive = false
 					oEnemy.sprite_index = sEnemydead
-					audio_play_sound(sndHit, 1, 0)
+					audio_play_sound(sndHeadshot, 5, 0)
+					oHeadshot.open = true
 					instance_create_layer(room_width, 0, "transition", oTransition)
+				}
+				if _victimhp == 0 {
+					global.shootoutactive = false
+					oEnemy.sprite_index = sEnemydead
+					instance_create_layer(room_width, 0, "transition", oTransition)
+				}
+				if _hit && !_headshot {
+					audio_play_sound(sndHit, 1, 0)
+					oEnemyClient.hp = _victimhp
 				}
 			} else if !_hit {
 				oWorld.Enemyshootx = _shotX
@@ -110,16 +124,32 @@ function recieved_packet(argument0) {
 				oWorld.Enemyshotalpha = 1
 				
 			} else {
-				oFpshand.image_index = 1
-				oFpshand.alarm[0] = 20
-				oFpshand.shake = true
-				oPlayerClient.canmove = false
-				instance_create_layer(736, 224, "ready", oDeath)
-				global.shootoutactive = false
-				audio_play_sound(sndDeath, 1, 0, 1.5)
-				instance_create_layer(room_width, 0, "transition", oTransition)
-				oWorld.deathflash = true
-				instance_create_layer(880, 380, "muzzle", oFlyingobject)
+				if _hit {
+					oFpshand.shake = true
+					oWorld.maxdeathsflashalpha = 0.3
+					oWorld.deathflash = true
+					audio_play_sound(sndDamage, 2, 0)
+					var death = instance_create_layer(736, 224, "ready", oDeath)
+					death.crush(0, 20)
+					death.sprite_index = sDmgcrack
+					oPlayerClient.hp--
+				}
+				if oPlayerClient.hp == 0 || _headshot {
+					oFpshand.image_index = 1
+					oFpshand.alarm[0] = 20
+					oFpshand.shake = true
+					oPlayerClient.canmove = false
+					instance_destroy(oDeath)
+					var death = instance_create_layer(736, 224, "ready", oDeath)
+					death.crush(4, 60)
+					global.shootoutactive = false
+					audio_play_sound(sndDeath, 1, 0, 1.5)
+					instance_create_layer(room_width, 0, "transition", oTransition)
+					oWorld.maxdeathsflashalpha = 0.8
+					oWorld.deathflash = true
+					instance_create_layer(880, 380, "muzzle", oFlyingobject)
+				}
+				
 			}
 			
 			_player = ds_map_find_value(socket_to_instance_id, _sock)
@@ -138,6 +168,9 @@ function recieved_packet(argument0) {
 			oWorld.reloaded = true
 			oFpshand.readytoshoot = false
 			oFpshand.image_index = 0
+			oHeadshot.open = false
+			oPlayerClient.hp = 2
+			oEnemyClient.hp = 2
 			with (oDeath) {
 				instance_destroy()
 			}

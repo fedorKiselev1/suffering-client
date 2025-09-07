@@ -9,7 +9,11 @@ if global.shootoutactive {
 			buffer_write(oClient.client_buffer, buffer_u16, oEnemy.x)
 			buffer_write(oClient.client_buffer, buffer_u16, oEnemy.y)
 			buffer_write(oClient.client_buffer, buffer_bool, position_meeting(mouse_x, mouse_y, oEnemy)) //shot?
+			buffer_write(oClient.client_buffer, buffer_bool, position_meeting(mouse_x, mouse_y, oEnemyHead)) //headshot?
 			network_send_packet(oClient.client, oClient.client_buffer, buffer_tell(oClient.client_buffer))
+			if position_meeting(mouse_x, mouse_y, oEnemy) {
+				instance_create_layer(mouse_x, mouse_y, "ready", oDamageindicator)
+			}
 			shootx = mouse_x
 			shooty = mouse_y
 			shotalpha = 1
@@ -64,5 +68,5 @@ if deathflash {
 		deathflash = false
 	}
 } else {
-	deathsflashalpha = 1
+	deathsflashalpha = maxdeathsflashalpha
 }
